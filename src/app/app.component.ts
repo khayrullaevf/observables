@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild ,AfterViewInit} from '@angular/core';
-import { Observable, from, fromEvent, of } from 'rxjs';
+import { Observable, filter, from, fromEvent, map, of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -15,35 +15,35 @@ export class AppComponent  implements AfterViewInit{
   array2=['A','B','C']
 
 
- @ViewChild('createBtn')
-  createBtn!: ElementRef;
-  createBtnObs?:any
+//  @ViewChild('createBtn')
+//   createBtn!: ElementRef;
+//   createBtnObs?:any
 
 
-  buttonClick(){
-    let count=0
-    this.createBtnObs=fromEvent(this.createBtn.nativeElement,'click')
-    .subscribe({
-      next:value=>{
-        console.log(value);
-        this.showItem(++count)
-      }
-    })
-  }
+  // buttonClick(){
+  //   let count=0
+  //   this.createBtnObs=fromEvent(this.createBtn.nativeElement,'click')
+  //   .subscribe({
+  //     next:value=>{
+  //       console.log(value);
+  //       this.showItem(++count)
+  //     }
+  //   })
+  // }
 
   ngAfterViewInit(): void {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
-    this.buttonClick()
+    // this.buttonClick()
   }
 
-  showItem(data:any){
-    console.log(data);
-    const item=document.createElement('div');
-    item.innerText='Item '+data;
-    item.className='data-list'
-    document.getElementById('container')?.appendChild(item)
-  }
+  // showItem(data:any){
+  //   console.log(data);
+  //   const item=document.createElement('div');
+  //   item.innerText='Item '+data;
+  //   item.className='data-list'
+  //   document.getElementById('container')?.appendChild(item)
+  // }
 
   //Observable
   // myObservable=new Observable((observer)=>{
@@ -64,13 +64,23 @@ export class AppComponent  implements AfterViewInit{
   // myObservable=of(this.array1,this.array2,30,20,true,'s')
 
 
-  // promiseData=new Promise((res,rej)=>{
-  //   res('abcd')
-  // })
+  promiseData=new Promise((res,rej)=>{
+    res('abcd')
+  })
 
 
-  myObservable=from(this.array1)
+  myObservable=from([1,3,2,4,6,8,10,12,13,])
+  filteredObs=this.myObservable.pipe(map((val)=>{
+    return val*10
+  }),
+  filter((val)=>{
+    return val % 4 ===0
+  })
+)
 
+  // filteredObs=this.transformedObs.pipe(filter((val)=>{
+  //   return val % 2 ===0
+  // }))
 
 
   getAsncData(){
@@ -89,7 +99,7 @@ export class AppComponent  implements AfterViewInit{
   //   }
   // );
 
-  this.myObservable.subscribe({
+  this.filteredObs.subscribe({
     next:(value:any)=>{
       this.data.push(value)
     },
