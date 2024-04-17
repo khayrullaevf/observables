@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, from, of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,24 +11,36 @@ export class AppComponent {
 
   data:any[]=[]
 
+  array1=[1,2,3,4,5,6,7]
+  array2=['A','B','C']
+
 
 
   //Observable
-  myObservable=new Observable((observer)=>{
-    setTimeout(() => { observer.next(1) }, 1000);
-    setTimeout(() => { observer.next(2) }, 2000);
-    setTimeout(() => { observer.next(3) }, 3000);
-    setTimeout(() => { observer.next(4) }, 4000);
-    setTimeout(() => { observer.next(5) }, 5000);
-    setTimeout(() => { observer.next(6) }, 6000);
-    // setTimeout(() => { observer.error(new Error('This is error')) }, 7000);
-    setTimeout(() => { observer.next(7) }, 7000);
-    setTimeout(() => { observer.next(8) }, 8000);
-    setTimeout(() => { observer.next(9) }, 9000);
-    setTimeout(() => { observer.next(10) }, 10000);
-    setTimeout(() => { observer.complete() }, 11000);
-  })
+  // myObservable=new Observable((observer)=>{
+  //   setTimeout(() => { observer.next(1) }, 1000);
+  //   setTimeout(() => { observer.next(2) }, 2000);
+  //   setTimeout(() => { observer.next(3) }, 3000);
+  //   setTimeout(() => { observer.next(4) }, 4000);
+  //   setTimeout(() => { observer.next(5) }, 5000);
+  //   setTimeout(() => { observer.next(6) }, 6000);
+  //   // setTimeout(() => { observer.error(new Error('This is error')) }, 7000);
+  //   setTimeout(() => { observer.next(7) }, 7000);
+  //   setTimeout(() => { observer.next(8) }, 8000);
+  //   setTimeout(() => { observer.next(9) }, 9000);
+  //   setTimeout(() => { observer.next(10) }, 10000);
+  //   setTimeout(() => { observer.complete() }, 11000);
+  // })
 
+  // myObservable=of(this.array1,this.array2,30,20,true,'s')
+
+
+  // promiseData=new Promise((res,rej)=>{
+  //   res('abcd')
+  // })
+
+
+  myObservable=from(this.array1)
 
 
 
